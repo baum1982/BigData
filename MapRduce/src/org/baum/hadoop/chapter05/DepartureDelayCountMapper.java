@@ -7,11 +7,18 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+
+
+/**
+ * 출발이 지연된 데이터만 걸러서 월별로 매핑
+ * @author baum
+ *
+ */
 public class DepartureDelayCountMapper extends
 		Mapper<LongWritable, Text, Text, IntWritable> {
 		
 	// map 출력값
-	private final static IntWritable outputValue = new IntWritable(1);
+	private final static IntWritable one = new IntWritable(1);
 	
 	// map 출력기
 	private Text outputKey = new Text();
@@ -40,7 +47,7 @@ public class DepartureDelayCountMapper extends
 					int depDelayTime = 	Integer.parseInt(columns[15]);
 					if(depDelayTime > 0){
 						// 출력 데이터 생성
-						context.write(outputKey, outputValue);
+						context.write(outputKey, one);
 					}
 				}
 			}
